@@ -1,0 +1,19 @@
+{
+    "name": "lemonweb/sisow-api",
+    "version": "0.0.1",
+    "description": "Sisow API client library for PHP",
+    "homepage": "https://github.com/lemonweb/sisow-api",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "LemonWeb B.V.",
+            "email": "danny@mijnwebwinkel.nl"
+        }
+    ],
+    "keywords": ["sisow","payment", "gateway"],
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    }
+}
