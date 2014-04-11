@@ -21,6 +21,11 @@ class Ideal extends Payment
         return $directoryRequest->getAvailableIssuers();
     }
 
+    public function getPaymentIdentifier()
+    {
+        return '';
+    }
+
     /**
      * @return int
      */

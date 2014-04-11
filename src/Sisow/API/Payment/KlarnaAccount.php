@@ -6,5 +6,8 @@ use Sisow\API\Payment;
 
 class KlarnaAccount extends Payment
 {
-
+    public function getPaymentIdentifier()
+    {
+        return 'klarnaacc';
+    }
 } 
