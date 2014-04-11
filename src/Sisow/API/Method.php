@@ -77,7 +77,7 @@ abstract class Method
         $dom->loadXML($requestResult);
         $array = call_user_func_array('array_merge', $this->convertXmlToArray($dom));
         if (isset($array['error'], $array['error']['errormessage'], $array['error']['errorcode'])) {
-            throw new Exception($array['error']['errormessage'], $array['error']['errorcode']);
+            throw new Exception("[{$array['error']['errorcode']}] {$array['error']['errormessage']}");
         }
         return call_user_func_array('array_merge', $array);
     }
