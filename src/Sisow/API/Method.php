@@ -96,7 +96,7 @@ abstract class Method
                 $child = $children->item(0);
                 if ($child->nodeType == XML_TEXT_NODE) {
                     $result['_value'] = $child->nodeValue;
-                    return count($result) == 1 ? $result['_value'] : $result;
+                    return urldecode(count($result) == 1 ? $result['_value'] : $result);
                 }
             }
             $groups = array();
