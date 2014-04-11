@@ -7,6 +7,9 @@ class Client
     const ENVIRONMENT_PRODUCTION = 'production';
     const ENVIRONMENT_TESTING = 'testing';
 
+    /** @var string */
+    private $ipAddress;
+
     /** @var int */
     private $merchantId;
 
@@ -20,6 +23,29 @@ class Client
     {
         $this->setMerchantId($merchantId);
         $this->setMerchantKey($merchantKey);
+        if ($ipAddress = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP)) {
+            $this->ipAddress = $ipAddress;
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getIpAddress()
+    {
+        return $this->ipAddress;
+    }
+
+    /**
+     * @param string $ipAddress
+     * @throws Exception
+     */
+    public function setIpAddress($ipAddress)
+    {
+        if (!filter_var($ipAddress, FILTER_VALIDATE_IP)) {
+            throw new Exception('The given IP address is not valid (must be either IPv4 or IPv6');
+        }
+        $this->ipAddress = $ipAddress;
     }
 
     /**

@@ -26,9 +26,6 @@ abstract class Payment
     private $entranceCode;
 
     /** @var string */
-    private $ipAddress;
-
-    /** @var string */
     private $notificationUrl;
 
     /** @var string|int */
@@ -36,13 +33,6 @@ abstract class Payment
 
     /** @var string */
     private $returnUrl;
-
-    public function __construct()
-    {
-        if ($ipAddress = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP)) {
-            $this->ipAddress = $ipAddress;
-        }
-    }
 
     /**
      * @return int
@@ -167,26 +157,6 @@ abstract class Payment
     /**
      * @return string
      */
-    public function getIpAddress()
-    {
-        return $this->ipAddress;
-    }
-
-    /**
-     * @param string $ipAddress
-     * @throws Exception
-     */
-    public function setIpAddress($ipAddress)
-    {
-        if (!filter_var($ipAddress, FILTER_VALIDATE_IP)) {
-            throw new Exception('The given IP address is not valid (must be either IPv4 or IPv6');
-        }
-        $this->ipAddress = $ipAddress;
-    }
-
-    /**
-     * @return string
-     */
     public function getNotificationUrl()
     {
         return $this->notificationUrl;
@@ -202,6 +172,14 @@ abstract class Payment
             throw new Exception('The notificationUrl must be a valid address (scheme included!)');
         }
         $this->notificationUrl = $notificationUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPaymentIdentifier()
+    {
+        return '';
     }
 
     /**
