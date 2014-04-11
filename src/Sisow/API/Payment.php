@@ -26,7 +26,7 @@ abstract class Payment
     private $entranceCode;
 
     /** @var string */
-    private $notificationUrl;
+    private $notifyUrl;
 
     /** @var string|int */
     private $purchaseId;
@@ -157,21 +157,21 @@ abstract class Payment
     /**
      * @return string
      */
-    public function getNotificationUrl()
+    public function getNotifyUrl()
     {
-        return $this->notificationUrl;
+        return $this->notifyUrl;
     }
 
     /**
-     * @param string $notificationUrl
+     * @param string $notifyUrl
      * @throws Exception
      */
-    public function setNotificationUrl($notificationUrl)
+    public function setNotifyUrl($notifyUrl)
     {
-        if (!filter_var($notificationUrl, FILTER_VALIDATE_URL)) {
-            throw new Exception('The notificationUrl must be a valid address (scheme included!)');
+        if (!filter_var($notifyUrl, FILTER_VALIDATE_URL)) {
+            throw new Exception('The notifyUrl must be a valid address (scheme included!)');
         }
-        $this->notificationUrl = $notificationUrl;
+        $this->notifyUrl = $notifyUrl;
     }
 
     /**
