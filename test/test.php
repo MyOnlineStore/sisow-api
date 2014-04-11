@@ -13,13 +13,12 @@ $client->setEnviroment(Client::ENVIRONMENT_TESTING);
 
 $orderNumber = time();
 
-$ideal = new Mastercard();
-$ideal->setAmount(100);
-$ideal->setPurchaseId($orderNumber);
-$ideal->setEntranceCode(sha1($orderNumber));
+$payment = new Mastercard();
+$payment->setAmount(100);
+$payment->setPurchaseId($orderNumber);
+$payment->setEntranceCode(sha1($orderNumber));
+$payment->setDescription("Order: {$orderNumber}");
+$payment->setReturnUrl('http://www.example.org/');
 
-$ideal->setDescription("Order: {$orderNumber}");
-$ideal->setReturnUrl('http://www.example.org/');
-
-$transactionRequest = new TransactionRequest($client, $ideal);
+$transactionRequest = new TransactionRequest($client, $payment);
 var_dump($transactionRequest->request());
