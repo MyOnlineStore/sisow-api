@@ -74,12 +74,12 @@ abstract class Payment
 
     /**
      * @param string $callbackUrl
-     * @throws \Exception
+     * @throws Exception
      */
     public function setCallbackUrl($callbackUrl)
     {
         if (!filter_var($callbackUrl, FILTER_VALIDATE_URL)) {
-            throw new \Exception('The callbackUrl must be a valid address (scheme included!)');
+            throw new Exception('The callbackUrl must be a valid address (scheme included!)');
         }
         $this->callbackUrl = $callbackUrl;
     }
@@ -94,12 +94,12 @@ abstract class Payment
 
     /**
      * @param string $cancelUrl
-     * @throws \Exception
+     * @throws Exception
      */
     public function setCancelUrl($cancelUrl)
     {
         if (!filter_var($cancelUrl, FILTER_VALIDATE_URL)) {
-            throw new \Exception('The cancelUrl must be a valid address (scheme included!)');
+            throw new Exception('The cancelUrl must be a valid address (scheme included!)');
         }
         $this->cancelUrl = $cancelUrl;
     }
@@ -194,12 +194,12 @@ abstract class Payment
 
     /**
      * @param string $notificationUrl
-     * @throws \Exception
+     * @throws Exception
      */
     public function setNotificationUrl($notificationUrl)
     {
         if (!filter_var($notificationUrl, FILTER_VALIDATE_URL)) {
-            throw new \Exception('The notificationUrl must be a valid address (scheme included!)');
+            throw new Exception('The notificationUrl must be a valid address (scheme included!)');
         }
         $this->notificationUrl = $notificationUrl;
     }
@@ -234,12 +234,12 @@ abstract class Payment
 
     /**
      * @param string $returnUrl
-     * @throws \Exception
+     * @throws Exception
      */
     public function setReturnUrl($returnUrl)
     {
         if (!filter_var($returnUrl, FILTER_VALIDATE_URL)) {
-            throw new \Exception('The returnUrl must be a valid address (scheme included!)');
+            throw new Exception('The returnUrl must be a valid address (scheme included!)');
         }
         $this->returnUrl = $returnUrl;
     }
