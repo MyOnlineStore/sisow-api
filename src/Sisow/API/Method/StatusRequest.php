@@ -3,7 +3,9 @@
 namespace Sisow\API\Method;
 
 use Sisow\API\Client;
+use Sisow\API\Exception;
 use Sisow\API\Method;
+use Sisow\API\Result\StatusRequestResult;
 
 class StatusRequest extends Method
 {
@@ -45,7 +47,8 @@ class StatusRequest extends Method
     }
 
     /**
-     * @return array
+     * @return StatusRequestResult
+     * @throws Exception
      */
     public function execute()
     {
@@ -56,6 +59,6 @@ class StatusRequest extends Method
             'trxid' => $this->transactionId,
             'sha1' => $this->getHash()
         );
-        return parent::execute($parameters);
+        return new StatusRequestResult($client, parent::execute($parameters));
     }
 } 

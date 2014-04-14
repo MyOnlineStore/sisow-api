@@ -38,4 +38,14 @@ class Ideal extends Payment
     {
         $this->issuerId = $issuerId;
     }
+
+    /**
+     * @return array
+     */
+    public function getParameters()
+    {
+        return array(
+            'issuerid' => $this->getIssuerId()
+        );
+    }
 } 

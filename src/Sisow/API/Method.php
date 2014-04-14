@@ -80,7 +80,7 @@ abstract class Method
         if (isset($array['error'], $array['error']['errormessage'], $array['error']['errorcode'])) {
             throw new Exception("[{$array['error']['errorcode']}] {$array['error']['errormessage']}");
         }
-        return call_user_func_array('array_merge', $array);
+        return $array;
     }
 
     /**

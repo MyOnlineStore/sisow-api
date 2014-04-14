@@ -34,14 +34,6 @@ class TransactionRequest extends Method
     }
 
     /**
-     * @return string
-     */
-    public function getHash()
-    {
-        return sha1("{$this->payment->getPurchaseId()}{$this->payment->getEntranceCode()}{$this->payment->getAmount()}{$this->getClient()->getMerchantId()}{$this->getClient()->getMerchantKey()}");
-    }
-
-    /**
      * @return Ebill|Ideal|KlarnaAccount|KlarnaInvoice|Maestro|Mastercard|MisterCash|PaypalExpressCheckout|SofortBanking|Visa|WebshopGiftcard|WireTransfer
      */
     public function getPayment()
@@ -84,10 +76,14 @@ class TransactionRequest extends Method
         if (method_exists($payment, 'getParameters')) {
             $parameters = array_merge($parameters, $payment->getParameters());
         }
-
-        if ($this->payment instanceof Ideal) {
-            $parameters['issuerid'] = $payment->getIssuerId();
-        }
         return parent::execute($parameters);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getHash()
+    {
+        return sha1("{$this->payment->getPurchaseId()}{$this->payment->getEntranceCode()}{$this->payment->getAmount()}{$this->getClient()->getMerchantId()}{$this->getClient()->getMerchantKey()}");
     }
 } 
