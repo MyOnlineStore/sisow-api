@@ -9,6 +9,12 @@ use Sisow\API\Result;
 
 class TransactionRequestResult extends Result
 {
+    /** @var int */
+    private $documentId;
+
+    /** @var string */
+    private $documentUrl;
+
     /** @var string */
     private $issuerUrl;
 
@@ -42,6 +48,43 @@ class TransactionRequestResult extends Result
 
         $this->setIssuerUrl($transactionRequestData['issuerurl']);
         $this->setTransactionId($transactionRequestData['trxid']);
+
+        if (isset($transactionRequestData['documentid'], $transactionRequestData['documenturl'])) {
+            $this->setDocumentId($transactionRequestData['documentid']);
+            $this->setDocumentUrl($transactionRequestData['documenturl']);
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function getDocumentId()
+    {
+        return $this->documentId;
+    }
+
+    /**
+     * @param int $documentId
+     */
+    protected function setDocumentId($documentId)
+    {
+        $this->documentId = (int)$documentId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDocumentUrl()
+    {
+        return $this->documentUrl;
+    }
+
+    /**
+     * @param string $documentUrl
+     */
+    protected function setDocumentUrl($documentUrl)
+    {
+        $this->documentUrl = $documentUrl;
     }
 
     /**
