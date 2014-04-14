@@ -62,17 +62,18 @@ class TransactionRequest extends Method
      */
     public function execute()
     {
+        $client = $this->getClient();
         $payment = $this->getPayment();
 
         $parameters = array(
-            'merchantid' => $this->getClient()->getMerchantId(),
+            'merchantid' => $client->getMerchantId(),
             'payment' => $payment::PAYMENT_IDENTIFIER,
             'purchaseid' => $payment->getPurchaseId(),
             'amount' => $payment->getAmount(),
             'currency' => $payment->getCurrency(),
             'entrancecode' => $payment->getEntranceCode(),
             'description' => $payment->getDescription(),
-            'ipaddress' => $this->getClient()->getIpAddress(),
+            'ipaddress' => $client->getIpAddress(),
             'returnurl' => $payment->getReturnUrl(),
             'cancelurl' => $payment->getCancelUrl(),
             'callbackurl' => $payment->getCallbackUrl(),
@@ -80,7 +81,9 @@ class TransactionRequest extends Method
             'sha1' => $this->getHash()
         );
 
-        $parameters = array_merge($parameters, $payment->getParameters());
+        if (method_exists($payment, 'getParameters')) {
+            $parameters = array_merge($parameters, $payment->getParameters());
+        }
 
         if ($this->payment instanceof Ideal) {
             $parameters['issuerid'] = $payment->getIssuerId();
