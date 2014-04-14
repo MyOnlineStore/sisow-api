@@ -4,22 +4,16 @@ namespace Sisow\API\Method;
 
 use Sisow\API\Exception;
 use Sisow\API\Method;
+use Sisow\API\Result\DirectoryRequestResult;
 
 class DirectoryRequest extends Method
 {
     /**
-     * @return array
+     * @return DirectoryRequestResult
      * @throws Exception
      */
-    public function getAvailableIssuers()
+    public function execute()
     {
-        $requestResult = $this->execute();
-        if (!isset($requestResult['issuer'])) {
-            throw new Exception('No Issuers could be found');
-        }
-        if (isset($requestResult['issuer']['issuerid'])) {
-            return array($requestResult['issuer']);
-        }
-        return $requestResult['issuer'];
+        return new DirectoryRequestResult($this->getClient(), parent::execute());
     }
 } 
