@@ -15,6 +15,9 @@ class TransactionRequestResult extends Result
     /** @var string */
     private $documentUrl;
 
+    /** @var int */
+    private $invoiceNumber;
+
     /** @var string */
     private $issuerUrl;
 
@@ -53,6 +56,10 @@ class TransactionRequestResult extends Result
             $this->setDocumentId($transactionRequestData['documentid']);
             $this->setDocumentUrl($transactionRequestData['documenturl']);
         }
+
+        if (isset($transactionRequestData['invoiceno'])) {
+            $this->setInvoiceNumber($transactionRequestData['invoiceno']);
+        }
     }
 
     /**
@@ -85,6 +92,22 @@ class TransactionRequestResult extends Result
     protected function setDocumentUrl($documentUrl)
     {
         $this->documentUrl = $documentUrl;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInvoiceNumber()
+    {
+        return $this->invoiceNumber;
+    }
+
+    /**
+     * @param int $invoiceNumber
+     */
+    protected function setInvoiceNumber($invoiceNumber)
+    {
+        $this->invoiceNumber = $invoiceNumber;
     }
 
     /**
