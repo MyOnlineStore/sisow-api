@@ -49,7 +49,7 @@ class TransactionRequest extends Method
     /**
      * @return array
      */
-    public function request()
+    public function execute()
     {
         $parameters = array(
             'merchantid' => $this->getClient()->getMerchantId(),
@@ -70,6 +70,6 @@ class TransactionRequest extends Method
         if ($this->payment instanceof Ideal) {
             $parameters['issuerid'] = $this->payment->getIssuerId();
         }
-        return parent::request($parameters);
+        return parent::execute($parameters);
     }
 } 

@@ -21,4 +21,4 @@ $payment->setDescription("Order: {$orderNumber}");
 $payment->setReturnUrl('http://www.example.org/');
 
 $transactionRequest = new TransactionRequest($client, $payment);
-var_dump($transactionRequest->request());
+var_dump($transactionRequest->execute());

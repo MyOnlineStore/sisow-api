@@ -13,7 +13,7 @@ class DirectoryRequest extends Method
      */
     public function getAvailableIssuers()
     {
-        $requestResult = $this->request();
+        $requestResult = $this->execute();
         if (!isset($requestResult['issuer'])) {
             throw new Exception('No Issuers could be found');
         }

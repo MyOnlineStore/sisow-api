@@ -58,10 +58,11 @@ abstract class Method
      * @param array $parameters
      * @return mixed
      */
-    protected function request(array $parameters = array())
+    protected function execute(array $parameters = array())
     {
         $requestMethod = ltrim(str_replace(get_class(), '', get_called_class()), '\\');
         $testMode = $this->client->getEnviroment() == Client::ENVIRONMENT_TESTING ? 'true' : 'false';
+        $parameters = array_merge($parameters, array('testmode' => $testMode));
         $requestResult = $this->curlRequest("{$this->endpoint}/{$requestMethod}?test={$testMode}", $parameters);
         return $this->parseRequestResult($requestResult);
     }
