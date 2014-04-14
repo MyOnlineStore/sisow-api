@@ -68,8 +68,8 @@ abstract class Method
     }
 
     /**
-     * @param $requestResult
-     * @return mixed
+     * @param string $requestResult
+     * @return array
      * @throws Exception
      */
     private function parseRequestResult($requestResult)

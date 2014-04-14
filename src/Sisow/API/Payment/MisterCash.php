@@ -6,8 +6,5 @@ use Sisow\API\Payment;
 
 class MisterCash extends Payment
 {
-    public function getPaymentIdentifier()
-    {
-        return 'mistercash';
-    }
+    const PAYMENT_IDENTIFIER = 'mistercash';
 } 

@@ -6,8 +6,5 @@ use Sisow\API\Payment;
 
 class PaypalExpressCheckout extends Payment
 {
-    public function getPaymentIdentifier()
-    {
-        return 'paypalec';
-    }
+    const PAYMENT_IDENTIFIER = 'paypalec';
 } 

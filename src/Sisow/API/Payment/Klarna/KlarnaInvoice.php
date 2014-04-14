@@ -4,7 +4,7 @@ namespace Sisow\API\Payment\Klarna;
 
 use Sisow\API\Payment\Klarna;
 
-class Account extends Klarna
+class KlarnaInvoice extends Klarna
 {
-
+    const PAYMENT_IDENTIFIER = 'klarna';
 } 

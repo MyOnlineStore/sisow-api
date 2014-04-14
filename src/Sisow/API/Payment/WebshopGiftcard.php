@@ -6,8 +6,5 @@ use Sisow\API\Payment;
 
 class WebshopGiftcard extends Payment
 {
-    public function getPaymentIdentifier()
-    {
-        return 'webshop';
-    }
+    const PAYMENT_IDENTIFIER = 'webshop';
 } 

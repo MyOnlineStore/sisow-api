@@ -8,6 +8,8 @@ use Sisow\API\Payment;
 
 class Ideal extends Payment
 {
+    const PAYMENT_IDENTIFIER = '';
+
     /** @var int */
     private $issuerId;
 
@@ -19,11 +21,6 @@ class Ideal extends Payment
     {
         $directoryRequest = new DirectoryRequest($client);
         return $directoryRequest->getAvailableIssuers();
-    }
-
-    public function getPaymentIdentifier()
-    {
-        return '';
     }
 
     /**

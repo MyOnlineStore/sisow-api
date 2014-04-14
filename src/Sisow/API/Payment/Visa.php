@@ -6,8 +6,5 @@ use Sisow\API\Payment;
 
 class Visa extends Payment
 {
-    public function getPaymentIdentifier()
-    {
-        return 'visa';
-    }
+    const PAYMENT_IDENTIFIER = 'visa';
 } 

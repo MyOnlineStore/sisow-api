@@ -6,8 +6,5 @@ use Sisow\API\Payment;
 
 class SofortBanking extends Payment
 {
-    public function getPaymentIdentifier()
-    {
-        return 'sofort';
-    }
+    const PAYMENT_IDENTIFIER = 'sofort';
 } 

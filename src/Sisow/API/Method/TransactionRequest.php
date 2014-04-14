@@ -5,7 +5,18 @@ namespace Sisow\API\Method;
 use Sisow\API\Client;
 use Sisow\API\Method;
 use Sisow\API\Payment;
+use Sisow\API\Payment\Ebill;
 use Sisow\API\Payment\Ideal;
+use Sisow\API\Payment\Klarna\KlarnaAccount;
+use Sisow\API\Payment\Klarna\KlarnaInvoice;
+use Sisow\API\Payment\Maestro;
+use Sisow\API\Payment\Mastercard;
+use Sisow\API\Payment\MisterCash;
+use Sisow\API\Payment\PaypalExpressCheckout;
+use Sisow\API\Payment\SofortBanking;
+use Sisow\API\Payment\Visa;
+use Sisow\API\Payment\WebshopGiftcard;
+use Sisow\API\Payment\WireTransfer;
 
 class TransactionRequest extends Method
 {
@@ -31,7 +42,7 @@ class TransactionRequest extends Method
     }
 
     /**
-     * @return Payment
+     * @return Ebill|Ideal|KlarnaAccount|KlarnaInvoice|Maestro|Mastercard|MisterCash|PaypalExpressCheckout|SofortBanking|Visa|WebshopGiftcard|WireTransfer
      */
     public function getPayment()
     {
@@ -51,24 +62,28 @@ class TransactionRequest extends Method
      */
     public function execute()
     {
+        $payment = $this->getPayment();
+
         $parameters = array(
             'merchantid' => $this->getClient()->getMerchantId(),
-            'payment' => $this->payment->getPaymentIdentifier(),
-            'purchaseid' => $this->payment->getPurchaseId(),
-            'amount' => $this->payment->getAmount(),
-            'currency' => $this->payment->getCurrency(),
-            'entrancecode' => $this->payment->getEntranceCode(),
-            'description' => $this->payment->getDescription(),
+            'payment' => $payment::PAYMENT_IDENTIFIER,
+            'purchaseid' => $payment->getPurchaseId(),
+            'amount' => $payment->getAmount(),
+            'currency' => $payment->getCurrency(),
+            'entrancecode' => $payment->getEntranceCode(),
+            'description' => $payment->getDescription(),
             'ipaddress' => $this->getClient()->getIpAddress(),
-            'returnurl' => $this->payment->getReturnUrl(),
-            'cancelurl' => $this->payment->getCancelUrl(),
-            'callbackurl' => $this->payment->getCallbackUrl(),
-            'notifyurl' => $this->payment->getNotifyUrl(),
+            'returnurl' => $payment->getReturnUrl(),
+            'cancelurl' => $payment->getCancelUrl(),
+            'callbackurl' => $payment->getCallbackUrl(),
+            'notifyurl' => $payment->getNotifyUrl(),
             'sha1' => $this->getHash()
         );
 
+        $parameters = array_merge($parameters, $payment->getParameters());
+
         if ($this->payment instanceof Ideal) {
-            $parameters['issuerid'] = $this->payment->getIssuerId();
+            $parameters['issuerid'] = $payment->getIssuerId();
         }
         return parent::execute($parameters);
     }

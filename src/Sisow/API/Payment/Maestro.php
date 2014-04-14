@@ -6,8 +6,5 @@ use Sisow\API\Payment;
 
 class Maestro extends Payment
 {
-    public function getPaymentIdentifier()
-    {
-        return 'maestro';
-    }
+    const PAYMENT_IDENTIFIER = 'maestro';
 } 
