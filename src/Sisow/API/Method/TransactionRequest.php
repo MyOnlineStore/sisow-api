@@ -3,6 +3,7 @@
 namespace Sisow\API\Method;
 
 use Sisow\API\Client;
+use Sisow\API\Exception;
 use Sisow\API\Method;
 use Sisow\API\Payment;
 use Sisow\API\Payment\Ebill;
@@ -17,6 +18,7 @@ use Sisow\API\Payment\SofortBanking;
 use Sisow\API\Payment\Visa;
 use Sisow\API\Payment\WebshopGiftcard;
 use Sisow\API\Payment\WireTransfer;
+use Sisow\API\Result\TransactionRequestResult;
 
 class TransactionRequest extends Method
 {
@@ -50,7 +52,8 @@ class TransactionRequest extends Method
     }
 
     /**
-     * @return array
+     * @return mixed|TransactionRequestResult
+     * @throws Exception
      */
     public function execute()
     {
@@ -76,7 +79,7 @@ class TransactionRequest extends Method
         if (method_exists($payment, 'getParameters')) {
             $parameters = array_merge($parameters, $payment->getParameters());
         }
-        return parent::execute($parameters);
+        return new TransactionRequestResult($client, $payment, parent::execute($parameters));
     }
 
     /**
