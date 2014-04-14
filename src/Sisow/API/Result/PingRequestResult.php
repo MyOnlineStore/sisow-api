@@ -11,6 +11,11 @@ class PingRequestResult extends Result
     /** @var \DateTime */
     private $timestamp;
 
+    /**
+     * @param Client $client
+     * @param array $pingRequestData
+     * @throws Exception
+     */
     public function __construct(Client $client, array $pingRequestData)
     {
         $this->setClient($client);
@@ -20,11 +25,17 @@ class PingRequestResult extends Result
         $this->setTimestamp($pingRequestData['timestamp']);
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getTimestamp()
     {
         return $this->timestamp;
     }
 
+    /**
+     * @param int $timestamp
+     */
     protected function setTimestamp($timestamp)
     {
         $this->timestamp = \DateTime::createFromFormat('YmdHisu', $timestamp);
