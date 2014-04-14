@@ -175,14 +175,6 @@ abstract class Payment
     }
 
     /**
-     * @return string
-     */
-    public function getPaymentIdentifier()
-    {
-        return '';
-    }
-
-    /**
      * @return string|int
      */
     public function getPurchaseId()
