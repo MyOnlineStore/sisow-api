@@ -1,0 +1,15 @@
+<phpunit
+        backupGlobals="false"
+        processIsolation="false"
+        colors="true"
+        syntaxCheck="true"
+        bootstrap="./tests/bootstrap.php">
+    <testsuites>
+        <testsuite name="sisow-api">
+            <directory>tests/</directory>
+        </testsuite>
+    </testsuites>
+    <!--<logging>
+        <log type="coverage-html" target="../htdocs/front/coverage" charset="ISO-8859-1"/>
+    </logging>-->
+</phpunit>
