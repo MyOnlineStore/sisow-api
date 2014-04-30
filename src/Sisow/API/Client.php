@@ -23,7 +23,7 @@ class Client
     {
         $this->setMerchantId($merchantId);
         $this->setMerchantKey($merchantKey);
-        if ($ipAddress = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP)) {
+        if ($ipAddress = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
             $this->ipAddress = $ipAddress;
         }
     }
@@ -42,8 +42,8 @@ class Client
      */
     public function setIpAddress($ipAddress)
     {
-        if (!filter_var($ipAddress, FILTER_VALIDATE_IP)) {
-            throw new Exception('The given IP address is not valid (must be either IPv4 or IPv6');
+        if (!filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+            throw new Exception('The given IP address is not valid (must be either a public IPv4 or IPv6 address)');
         }
         $this->ipAddress = $ipAddress;
     }
