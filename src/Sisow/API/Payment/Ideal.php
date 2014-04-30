@@ -5,6 +5,7 @@ namespace Sisow\API\Payment;
 use Sisow\API\Client;
 use Sisow\API\Method\DirectoryRequest;
 use Sisow\API\Payment;
+use Sisow\API\Result\DirectoryRequestResult;
 
 class Ideal extends Payment
 {
@@ -15,12 +16,12 @@ class Ideal extends Payment
 
     /**
      * @param Client $client
-     * @return array
+     * @return DirectoryRequestResult
      */
     public function getAvailableIssuers(Client $client)
     {
         $directoryRequest = new DirectoryRequest($client);
-        return $directoryRequest->getAvailableIssuers();
+        return $directoryRequest->execute();
     }
 
     /**
