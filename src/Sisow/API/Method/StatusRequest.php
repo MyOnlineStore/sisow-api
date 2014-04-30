@@ -47,10 +47,11 @@ class StatusRequest extends Method
     }
 
     /**
+     * @param array $parameters
      * @return StatusRequestResult
      * @throws Exception
      */
-    public function execute()
+    public function execute(array $parameters = array())
     {
         $client = $this->getClient();
 

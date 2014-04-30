@@ -52,10 +52,11 @@ class TransactionRequest extends Method
     }
 
     /**
-     * @return mixed|TransactionRequestResult
+     * @param array $parameters
+     * @return TransactionRequestResult
      * @throws Exception
      */
-    public function execute()
+    public function execute(array $parameters = array())
     {
         $client = $this->getClient();
         $payment = $this->getPayment();
