@@ -10,6 +10,7 @@ use Sisow\API\Payment\Maestro;
 use Sisow\API\Payment\Mastercard;
 use Sisow\API\Payment\MisterCash;
 use Sisow\API\Payment\PaypalExpressCheckout;
+use Sisow\API\Payment\PodiumGiftcard;
 use Sisow\API\Payment\SofortBanking;
 use Sisow\API\Payment\Visa;
 use Sisow\API\Payment\WebshopGiftcard;
@@ -173,6 +174,25 @@ class PaymentRequestTest extends \PHPUnit_Framework_TestCase
         $statusResult = $statusRequest->execute();
         $this->assertEquals('Open', $statusResult->getStatus());
     }
+
+    public function testPodiumGiftcard()
+    {
+        $payment = new PodiumGiftcard();
+        $payment->setPurchaseId(uniqid());
+        $payment->setEntranceCode(uniqid());
+        $payment->setAmount(100);
+        $payment->setDescription(uniqid('phpunit-', true));
+
+        $transactionRequest = new TransactionRequest($this->client, $payment);
+        $requestResult = $transactionRequest->execute();
+        $this->assertNotEmpty($requestResult->getTransactionId());
+        $this->assertNotEmpty($requestResult->getIssuerUrl());
+
+        $statusRequest = new StatusRequest($this->client, $requestResult->getTransactionId());
+        $statusResult = $statusRequest->execute();
+        $this->assertEquals('Open', $statusResult->getStatus());
+    }
+
 
     public function testSofortBanking()
     {
