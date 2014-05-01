@@ -36,7 +36,7 @@ class DirectoryRequestResult extends Result
     }
 
     /**
-     * @return array
+     * @return IssuerResult[]
      */
     public function getIssuers()
     {
