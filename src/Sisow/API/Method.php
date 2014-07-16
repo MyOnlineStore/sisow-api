@@ -93,7 +93,7 @@ abstract class Method
 
         if ($dom->hasChildNodes()) {
             $children = $dom->childNodes;
-            if ($children->length == 1) {
+            if (1 === $children->length) {
                 $child = $children->item(0);
                 if ($child->nodeType == XML_TEXT_NODE) {
                     $result['_value'] = $child->nodeValue;
