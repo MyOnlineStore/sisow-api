@@ -60,24 +60,42 @@ class StatusRequestResult extends Result
 
         $statusRequestData = call_user_func_array('array_merge', $statusRequestData);
 
-        $requiredFields = array('trxid', 'status', 'amount', 'purchaseid', 'description', 'entrancecode', 'issuerid', 'timestamp',
-            'consumername', 'consumercity', 'consumeriban', 'consumerbic');
-        if(count(array_intersect_key(array_flip($requiredFields), $statusRequestData)) !== count($requiredFields)) {
-            throw new Exception('The request went wrong, missing parameters');
+        if (isset($statusRequestData['trxid'])) {
+            $this->setTransactionId($statusRequestData['trxid']);
         }
-
-        $this->setTransactionId($statusRequestData['trxid']);
-        $this->setStatus($statusRequestData['status']);
-        $this->setAmount($statusRequestData['amount']);
-        $this->setPurchaseId($statusRequestData['purchaseid']);
-        $this->setDescription($statusRequestData['description']);
-        $this->setEntranceCode($statusRequestData['entrancecode']);
-        $this->setIssuerId($statusRequestData['issuerid']);
-        $this->setTimestamp($statusRequestData['timestamp']);
-        $this->setConsumerName($statusRequestData['consumername']);
-        $this->setConsumerCity($statusRequestData['consumercity']);
-        $this->setConsumerIban($statusRequestData['consumeriban']);
-        $this->setConsumerBic($statusRequestData['consumerbic']);
+        if (isset($statusRequestData['status'])) {
+            $this->setStatus($statusRequestData['status']);
+        }
+        if (isset($statusRequestData['amount'])) {
+            $this->setAmount($statusRequestData['amount']);
+        }
+        if (isset($statusRequestData['purchaseid'])) {
+            $this->setPurchaseId($statusRequestData['purchaseid']);
+        }
+        if (isset($statusRequestData['description'])) {
+            $this->setDescription($statusRequestData['description']);
+        }
+        if (isset($statusRequestData['entrancecode'])) {
+            $this->setEntranceCode($statusRequestData['entrancecode']);
+        }
+        if (isset($statusRequestData['issuerid'])) {
+            $this->setIssuerId($statusRequestData['issuerid']);
+        }
+        if (isset($statusRequestData['timestamp'])) {
+            $this->setTimestamp($statusRequestData['timestamp']);
+        }
+        if (isset($statusRequestData['consumername'])) {
+            $this->setConsumerName($statusRequestData['consumername']);
+        }
+        if (isset($statusRequestData['consumercity'])) {
+            $this->setConsumerCity($statusRequestData['consumercity']);
+        }
+        if (isset($statusRequestData['consumeriban'])) {
+            $this->setConsumerIban($statusRequestData['consumeriban']);
+        }
+        if (isset($statusRequestData['consumerbic'])) {
+            $this->setConsumerBic($statusRequestData['consumerbic']);
+        }
     }
 
     /**
