@@ -19,4 +19,3 @@
 - KlarnaAccount
 - KlarnaInvoice
 - (Ecare)
-- (Esend)

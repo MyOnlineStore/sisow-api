@@ -7,6 +7,7 @@ use Sisow\API\Exception;
 use Sisow\API\Method;
 use Sisow\API\Payment;
 use Sisow\API\Payment\Ebill;
+use Sisow\API\Payment\Esend;
 use Sisow\API\Payment\Ideal;
 use Sisow\API\Payment\Klarna\KlarnaAccount;
 use Sisow\API\Payment\Klarna\KlarnaInvoice;
@@ -25,14 +26,21 @@ class TransactionRequest extends Method
     /** @var Payment */
     private $payment;
 
+    /** @var Esend */
+    private $esend;
+
     /**
      * @param Client $client
      * @param Payment $payment
+     * @param Esend $esend
      */
-    public function __construct(Client $client, Payment $payment)
+    public function __construct(Client $client, Payment $payment, Esend $esend = null)
     {
         $this->setClient($client);
         $this->setPayment($payment);
+        if ($esend) {
+            $this->setEsend($esend);
+        }
     }
 
     /**
@@ -49,6 +57,22 @@ class TransactionRequest extends Method
     public function setPayment(Payment $payment)
     {
         $this->payment = $payment;
+    }
+
+    /**
+     * @return Esend
+     */
+    public function getEsend()
+    {
+        return $this->esend;
+    }
+
+    /**
+     * @param Esend $esend
+     */
+    public function setEsend(Esend $esend)
+    {
+        $this->esend = $esend;
     }
 
     /**
@@ -80,6 +104,44 @@ class TransactionRequest extends Method
         if (method_exists($payment, 'getParameters')) {
             $parameters = array_merge($parameters, $payment->getParameters());
         }
+
+        if ($esend = $this->getEsend()) {
+            $esendParameters = array(
+                'shipping_lastname' => $esend->getLastname(),
+                'shipping_address1' => str_replace("\n", '', strstr("\n", $esend->getAddress(), true)),
+                'shipping_zip' => $esend->getZipcode(),
+                'shipping_city' => $esend->getCity(),
+                'shipping_country' => $esend->getCountry(),
+                'shipping_countrycode' => $esend->getCountryCode()
+            );
+
+            if ($firstname = $esend->getFirstname()) {
+                $esendParameters['shipping_firstname'] = $firstname;
+            }
+            if ($email = $esend->getEmail()) {
+                $esendParameters['shipping_mail'] = $email;
+            }
+            if ($company = $esend->getCompany()) {
+                $esendParameters['shipping_company'] = $company;
+            }
+            if ($address2 = strstr("\n", $esend->getAddress())) {
+                $esendParameters['shipping_address2'] = $address2;
+            }
+            if ($phone = $esend->getPhone()) {
+                $esendParameters['shipping_phone'] = $phone;
+            }
+            if ($weight = $esend->getWeight()) {
+                $esendParameters['weight'] = $weight;
+            }
+            if ($shippingCosts = $esend->getShippingCosts()) {
+                $esendParameters['shipping'] = $shippingCosts;
+            }
+            if ($handleCosts = $esend->getHandleCosts()) {
+                $esendParameters['handling'] = $handleCosts;
+            }
+            $parameters = array_merge($parameters, $esendParameters);
+        }
+
         return new TransactionRequestResult($client, $payment, parent::execute($parameters));
     }
 
@@ -90,4 +152,4 @@ class TransactionRequest extends Method
     {
         return sha1("{$this->payment->getPurchaseId()}{$this->payment->getEntranceCode()}{$this->payment->getAmount()}{$this->getClient()->getMerchantId()}{$this->getClient()->getMerchantKey()}");
     }
-} 
+}
