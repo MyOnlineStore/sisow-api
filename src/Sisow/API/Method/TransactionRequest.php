@@ -108,7 +108,7 @@ class TransactionRequest extends Method
         if ($esend = $this->getEsend()) {
             $esendParameters = array(
                 'shipping_lastname' => $esend->getLastname(),
-                'shipping_address1' => str_replace("\n", '', strstr("\n", $esend->getAddress(), true)),
+                'shipping_address1' => strstr($esend->getAddress(), "\n", true),
                 'shipping_zip' => $esend->getZipcode(),
                 'shipping_city' => $esend->getCity(),
                 'shipping_country' => $esend->getCountry(),
