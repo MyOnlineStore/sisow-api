@@ -51,7 +51,7 @@ abstract class Payment
         if (!is_numeric($amount)) {
             throw new Exception('The amount must be given in cents (integer)');
         }
-        $this->amount = (int)$amount;
+        $this->amount = $amount;
     }
 
     /**
