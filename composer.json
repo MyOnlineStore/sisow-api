@@ -1,6 +1,6 @@
 {
     "name": "lemonweb/sisow-api",
-    "version": "1.1.0",
+    "version": "1.1.2",
     "description": "Sisow API client library for PHP",
     "homepage": "https://github.com/lemonweb/sisow-api",
     "license": "MIT",
