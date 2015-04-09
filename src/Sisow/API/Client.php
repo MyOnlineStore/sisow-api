@@ -85,7 +85,8 @@ class Client
         if (!is_numeric($merchantId)) {
             throw new Exception('MerchantId must be numeric (integer)');
         }
-        $this->merchantId = (int)$merchantId;
+        /* We use round because 32 bit PHP converts large integers to floats. */
+        $this->merchantId = round($merchantId);
     }
 
     /**
