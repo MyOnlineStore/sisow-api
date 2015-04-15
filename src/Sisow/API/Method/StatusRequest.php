@@ -27,7 +27,7 @@ class StatusRequest extends Method
      */
     public function getHash()
     {
-        return sha1("{$this->getTransactionId()}{$this->getClient()->getMerchantId()}{$this->getClient()->getMerchantKey()}");
+        return sha1("{$this->getTransactionId()}{$this->getShopId()}{$this->getClient()->getMerchantId()}{$this->getClient()->getMerchantKey()}");
     }
 
     /**
@@ -56,10 +56,11 @@ class StatusRequest extends Method
         $client = $this->getClient();
 
         $parameters = array(
+            'shopid' => $this->getShopId(),
             'merchantid' => $client->getMerchantId(),
             'trxid' => $this->transactionId,
             'sha1' => $this->getHash()
         );
         return new StatusRequestResult($client, parent::execute($parameters));
     }
-} 
+}
