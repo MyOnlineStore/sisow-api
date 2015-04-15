@@ -86,6 +86,7 @@ class TransactionRequest extends Method
         $payment = $this->getPayment();
 
         $parameters = array(
+            'shopid' => $this->getShopId(),
             'merchantid' => $client->getMerchantId(),
             'payment' => $payment::PAYMENT_IDENTIFIER,
             'purchaseid' => $payment->getPurchaseId(),
@@ -150,6 +151,6 @@ class TransactionRequest extends Method
      */
     protected function getHash()
     {
-        return sha1("{$this->payment->getPurchaseId()}{$this->payment->getEntranceCode()}{$this->payment->getAmount()}{$this->getClient()->getMerchantId()}{$this->getClient()->getMerchantKey()}");
+        return sha1("{$this->payment->getPurchaseId()}{$this->payment->getEntranceCode()}{$this->payment->getAmount()}{$this->getShopId()}{$this->getClient()->getMerchantId()}{$this->getClient()->getMerchantKey()}");
     }
 }

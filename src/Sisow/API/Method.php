@@ -10,6 +10,9 @@ abstract class Method
     /** @var string */
     private $endpoint = 'https://www.sisow.nl/Sisow/iDeal/RestHandler.ashx';
 
+    /** @var int */
+    private $shopId = 0;
+
     /**
      * @param Client $client
      */
@@ -53,6 +56,29 @@ abstract class Method
         }
         $this->endpoint = $endpoint;
     }
+
+    /**
+     * @return int
+     */
+    public function getShopId()
+    {
+        return $this->shopId;
+    }
+
+    /**
+     * @param int $shopId
+     * @return $this
+     */
+    public function setShopId($shopId)
+    {
+        if($shopId < 0){
+            throw new \LogicException('shopId must be positive number');
+        }
+        $this->shopId = round((float)$shopId);
+        return $this;
+    }
+
+
 
     /**
      * @param array $parameters
@@ -136,4 +162,4 @@ abstract class Method
         curl_close($curlHandler);
         return $requestResult;
     }
-} 
+}
