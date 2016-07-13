@@ -5,7 +5,6 @@
 
 #### Requests
 - PingRequest
-- CheckMerchantRequest
 - BatchRequest
 - AutincCreateRequest
 - AutincStopRequest
